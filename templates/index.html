@@ -1,0 +1,32 @@
+{% extends 'base.html' %}
+
+{% block head %}
+    <title>INFO</title>
+{% endblock %}
+
+
+{% block body %}
+    <div class "content">
+        <table>
+            <tr>
+                <th> id </th>
+                <th> device_id </th>
+                <th> x </th>
+                <th> y </th>
+                <th> tempreture</th>
+                <th>date</th>
+            </tr>
+            {% for info in infos %}
+            <tr>
+                <td> {{ info.id }} </td>
+                <td> <a href="/device/{{info.device_id}}">  {{ info.device_id }} </a> </td>
+                <td> {{ info.x}} </td>
+                <td> {{info.y}} </td>
+                <td> {{info.tempreture}}</td>
+                <td>{{info.date}}</td>
+            </tr>
+
+            {% endfor %}
+        </table>
+    </div>
+{% endblock %}

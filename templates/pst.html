@@ -1,0 +1,18 @@
+{% extends 'base.html' %}
+
+
+{% block head %}
+    <title>post</title>
+{% endblock %}
+
+
+{% block body %}
+    <form method = 'POST'>
+        <input type="integer" , name = 'device_id', id = 'device_id'>
+        <input type="float" , name = 'x', id = 'x'>
+        <input type="float" , name = 'y', id = 'y'>
+        <input type="float" , name = 'tempreture', id = 'tempreture'>
+        <input type="datetime" , name = 'date', id = date>
+        <input type = 'submit' value = 'добавить'>
+    </form>
+{% endblock %}

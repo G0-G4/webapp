@@ -1,0 +1,38 @@
+{% extends 'base.html' %}
+
+{% block head %}
+    <title>INFO</title>
+{% endblock %}
+
+
+{% block body %}
+    <div class "content">
+        <table>
+            <tr>
+                <th> id </th>
+                <th> device_id </th>
+                <th> x </th>
+                <th> y </th>
+                <th> tempreture</th>
+                <th>date</th>
+            </tr>
+            {% for info in infos.items %}
+            <tr>
+                <td> {{ info.id }} </td>
+                <td> <a href="/device/{{info.device_id}}">  {{ info.device_id }} </a> </td>
+                <td> {{ info.x}} </td>
+                <td> {{info.y}} </td>
+                <td> {{info.tempreture}}</td>
+                <td>{{info.date}}</td>
+            </tr>
+
+            {% endfor %}
+        </table>
+    </div>
+    
+    
+    
+    {% if infos.has_prev %}<a href="{{ url_for('view', page=infos.prev_num) }}">&lt;&lt; туды</a>{% else %}&lt;&lt; Newer posts{% endif %} | 
+    {% if infos.has_next %}<a href="{{ url_for('view', page=infos.next_num) }}">сюды &gt;&gt;</a>{% else %}Older posts &gt;&gt;{% endif %}
+    
+{% endblock %}
