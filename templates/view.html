@@ -1,7 +1,7 @@
 {% extends 'base.html' %}
 
 {% block head %}
-    <title>INFO</title>
+    <title>View</title>
 {% endblock %}
 
 
@@ -32,7 +32,7 @@
     
     
     
-    {% if infos.has_prev %}<a href="{{ url_for('view', page=infos.prev_num) }}">&lt;&lt; туды</a>{% else %}&lt;&lt; Newer posts{% endif %} | 
-    {% if infos.has_next %}<a href="{{ url_for('view', page=infos.next_num) }}">сюды &gt;&gt;</a>{% else %}Older posts &gt;&gt;{% endif %}
+    {% if infos.has_prev %}<a href="{{ url_for('view', page=infos.prev_num) }}">&lt;&lt; туды</a>{% endif %} | 
+    {% if infos.has_next %}<a href="{{ url_for('view', page=infos.next_num) }}">сюды &gt;&gt;</a>{% endif %}
     
 {% endblock %}

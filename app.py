@@ -1,6 +1,10 @@
 from logging import INFO
 from flask import Flask, render_template, url_for, request, redirect
 from flask_sqlalchemy import SQLAlchemy
+import plotly
+import plotly.express as px
+import json
+import pandas as pd
 
 app = Flask(__name__)
 
@@ -66,6 +70,20 @@ def view(page=1):
     per_page = 10
     infos = Info.query.order_by(Info.date).paginate(page,per_page,error_out=False)
     return render_template('view.html',infos=infos)
+
+
+@app.route('/graph')
+def graph():
+    df = pd.DataFrame({
+        "Fruit": ["Apples", "Oranges", "Bananas", "Apples", "Oranges", "Bananas"],
+        "Amount": [4, 1, 2, 2, 4, 5],
+        "City": ["SF", "SF", "SF", "Montreal", "Montreal", "Montreal"]})
+    fig = px.bar(df, x="Fruit", y="Amount", color="City",    barmode="group")
+    graphJSON = json.dumps(fig, cls=plotly.utils.PlotlyJSONEncoder)
+    return render_template('graph.html', graphJSON=graphJSON)
+    
+
+
 
 if __name__ == "__main__":
     app.run(debug=True)
