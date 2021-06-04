@@ -1,4 +1,5 @@
 import requests, datetime, random
+from time import sleep
 
 # d = {
 #     'device_id' : 3,
@@ -16,5 +17,6 @@ for i in range(100):
     'tempreture': random.uniform(15, 30),
     'date': datetime.datetime.today()}
     r = requests.post('http://127.0.0.1:5000/post' , data = d)
+    sleep(0.5)
 
 print('success')

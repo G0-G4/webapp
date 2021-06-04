@@ -3,7 +3,7 @@
 
 {% block head %}
 <title>device info</title>
-<h1>information about {{device_id}}</h1>
+<h1>информация об устройстве № {{device_id}}</h1>
 <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
 {% endblock %}
 
@@ -51,7 +51,6 @@
                 backgroundColor: 'rgb(49, 59, 114)',
                 borderColor: 'rgb(49, 59, 114)',
                 data : {{y | safe}},
-                showLine: true
             }
           ]
         },
