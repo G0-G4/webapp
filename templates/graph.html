@@ -1,12 +1,40 @@
-<!doctype html>
+<!DOCTYPE html>
 <html>
- <body>
-  <h1>Hello Plotly (but not Dash)</h1>
-  <div id="chart" class="chart"></div>
+<head>
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Графики</title>
+  <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+</head>
+<body>
+
+  <canvas id = "tempretureChart", width = "900", height="400">
+    <script>
+      var ctx = document.getElementById("tempretureChart").getContext("2d");
+      var lineChart = new Chart(ctx, {
+        type: "line",
+        data : {
+          labels : {{dates | safe}},
+          datasets : [
+            {
+              label : "температура",
+              backgroundColor: 'rgb(49, 59, 114)',
+              borderColor: 'rgb(49, 59, 114)',
+              data : {{tempretures | safe}}
+            }
+          ]
+        },
+        options :{
+          responsive : false
+        }
+
+      });
+    </script>
+
+  </canvas>
+
+
+
 </body>
-<script src="https://cdn.plot.ly/plotly-latest.min.js"></script>
-<script type="text/javascript">
-  var graphs = {{graphJSON | safe}};
-  Plotly.plot('chart',graphs,{});
-</script>
 </html>

@@ -1,16 +1,13 @@
 from logging import INFO
 from flask import Flask, render_template, url_for, request, redirect
 from flask_sqlalchemy import SQLAlchemy
-import plotly
-import plotly.express as px
-import json
-import pandas as pd
 
 app = Flask(__name__)
 
 
 app.config['SQLALCHEMY_DATABASE_URI'] = 'mysql+pymysql://root:cnhf[e,bdftnhfpev010730@localhost/test'
 app.config['SQLALCHEMY_TRACK_MODIFICATIONS'] = False
+# engine = create_engine('mysql+pymysql://root:cnhf[e,bdftnhfpev010730@localhost/test')
 
 
 db = SQLAlchemy(app)
@@ -25,7 +22,7 @@ class Info(db.Model):
     date = db.Column(db.DateTime, nullable = False)
 
     def __repr__(self):
-        # return "<inf %>" % self.id
+        #return "<inf %>" % self.id
         return f"<inf {self.id}>"
 
 
@@ -62,7 +59,18 @@ def pst():
 
 @app.route("/device/<int:device_id>")
 def devid(device_id):
-    return render_template("device.html", device_id=device_id )
+    data = Info.query.filter_by(device_id = device_id).order_by(Info.date)
+    dates = []
+    tempretures = []
+    x = []
+    y = []
+    for d in data:
+        dates.append(str(d.date))
+        tempretures.append(d.tempreture)
+        x.append(d.x)
+        y.append(d.y)
+    return render_template("device.html", device_id=device_id, dates = dates,
+    tempretures = tempretures, x=x, y=y)
 
 
 @app.route('/myview/<int:page>',methods=['GET'])
@@ -74,13 +82,17 @@ def view(page=1):
 
 @app.route('/graph')
 def graph():
-    df = pd.DataFrame({
-        "Fruit": ["Apples", "Oranges", "Bananas", "Apples", "Oranges", "Bananas"],
-        "Amount": [4, 1, 2, 2, 4, 5],
-        "City": ["SF", "SF", "SF", "Montreal", "Montreal", "Montreal"]})
-    fig = px.bar(df, x="Fruit", y="Amount", color="City",    barmode="group")
-    graphJSON = json.dumps(fig, cls=plotly.utils.PlotlyJSONEncoder)
-    return render_template('graph.html', graphJSON=graphJSON)
+    data = Info.query.filter_by(device_id = 1).order_by(Info.date)
+    dates = []
+    tempretures = []
+    x = []
+    y = []
+    for d in data:
+        dates.append(str(d.date))
+        tempretures.append(d.tempreture)
+        x.append(d.x)
+        y.append(d.y)
+    return render_template('graph.html', dates = dates, tempretures = tempretures, x=x, y=y)
     
 
 

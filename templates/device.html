@@ -4,9 +4,64 @@
 {% block head %}
 <title>device info</title>
 <h1>information about {{device_id}}</h1>
+<script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
 {% endblock %}
 
 
 {% block body %}
+<canvas id = "tempretureChart", width = "900", height="400">
+    <script>
+      var ctx = document.getElementById("tempretureChart").getContext("2d");
+      var lineChart = new Chart(ctx, {
+        type: "line",
+        data : {
+          labels : {{dates | safe}},
+          datasets : [
+            {
+            
+                label : "температура",
+                backgroundColor: 'rgb(49, 59, 114)',
+                borderColor: 'rgb(49, 59, 114)',
+                data : {{tempretures | safe}},
+            }
+          ]
+        },
+        options :{
+            responsive : false
+        }
+
+      });
+    </script>
+
+  </canvas>
+
+
+
+  <canvas id = "positionChart", width = "900", height="400">
+    <script>
+      var ctx = document.getElementById("positionChart").getContext("2d");
+      var lineChart = new Chart(ctx, {
+        type: "scatter",
+        data : {
+          labels : {{x | safe}},
+          datasets : [
+            {
+            
+                label : "XY",
+                backgroundColor: 'rgb(49, 59, 114)',
+                borderColor: 'rgb(49, 59, 114)',
+                data : {{y | safe}},
+                showLine: true
+            }
+          ]
+        },
+        options :{
+            responsive : false
+        }
+
+      });
+    </script>
+
+  </canvas>
 
 {% endblock %}
